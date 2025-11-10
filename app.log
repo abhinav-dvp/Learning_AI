@@ -1,0 +1,60 @@
+2025-11-10 10:25:57,021 - WARNING - ChromaDB unavailable or failed to initialize: 5 validation errors for Settings
+clickhouse_host
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type
+clickhouse_port
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type
+chroma_server_host
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type
+chroma_server_http_port
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type
+chroma_server_grpc_port
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type. Using in-memory fallback.
+2025-11-10 10:25:57,025 - INFO - System initialized
+2025-11-10 10:25:57,077 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:12345
+ * Running on http://149.151.43.37:12345
+2025-11-10 10:25:57,077 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-10 10:25:57,078 - INFO -  * Restarting with stat
+2025-11-10 10:26:00,121 - WARNING - ChromaDB unavailable or failed to initialize: 5 validation errors for Settings
+clickhouse_host
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type
+clickhouse_port
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type
+chroma_server_host
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type
+chroma_server_http_port
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type
+chroma_server_grpc_port
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type. Using in-memory fallback.
+2025-11-10 10:26:00,123 - INFO - System initialized
+2025-11-10 10:26:00,147 - WARNING -  * Debugger is active!
+2025-11-10 10:26:00,198 - INFO -  * Debugger PIN: 531-863-026
+2025-11-10 10:27:22,133 - INFO - 127.0.0.1 - - [10/Nov/2025 10:27:22] "GET / HTTP/1.1" 200 -
+2025-11-10 10:27:22,475 - INFO - 127.0.0.1 - - [10/Nov/2025 10:27:22] "GET /api/status HTTP/1.1" 200 -
+2025-11-10 10:27:22,546 - INFO - 127.0.0.1 - - [10/Nov/2025 10:27:22] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-10 10:27:24,933 - INFO - Starting daily discovery for topics: ['recent meta-analysis on meditation-induced neuroplasticity', 'novel gene mutations influencing neurochemistry', 'quantum models of consciousness', 'multi-modal imaging in pain research', 'latest optogenetics breakthroughs', 'deep learning models for body language interpretation', 'new frameworks in historical cycles of civilization', 'cross-cultural comparative studies in philosophy of mind', 'dark matter analogies in neurobiology', 'rare psychiatric syndromes and neurochemical pathways', 'unifying theories in neural complexity', 'network neuroscience of consciousness', 'multi-scale modeling of personality development', 'emerging debates in receptor pharmacology', 'critique of mirror neuron theory', 'large-scale AI review of clinical trials in neurogenesis', 'spiritual neuroscience', 'advanced neurochemistry', 'dopamine, serotonin, and receptor subtypes', 'brain regions and neural circuits', 'functional neuroimaging', 'psychological neurobiology', 'microexpressions and body language', 'voice tone analytics', 'neuron growth and gray matter', 'synaptic plasticity', 'behavioral genetics', 'consciousness studies', 'meditation-induced neuroplasticity', 'philosophy of mind', 'cultural neuroanthropology', 'biogenic amines in behavior', 'pain pathways and modulation', 'complex personality formation', 'music cognition and brain', 'quantum physics in biology', 'computational neuroscience', 'gene expression in psychiatric disorders', 'NMDA, GABA, AMPA receptor mechanisms', 'emotional regulation circuits', 'historical symbolism in art', 'ancient ritual and consciousness', 'macrohistory cycles and societal transformation', 'Cross-disciplinary neuroscience and spirituality', 'epigenetics and environmental effects', 'comparative ritual psychology', 'cognitive anthropology', 'neuromodulation technologies', 'art, perception, and neural substrates', 'case studies in abnormal psychology', 'meta-analysis neurobiology', 'FMRI, EEG, PET neuroscience']
+2025-11-10 10:27:24,933 - INFO - Searching ArXiv: recent meta-analysis on meditation-induced neuroplasticity
+2025-11-10 10:27:24,934 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=recent+meta-analysis+on+meditation-induced+neuroplasticity&id_list=&sortBy=relevance&sortOrder=descending&start=0&max_results=100
+2025-11-10 10:27:25,548 - INFO - Got first page: 25 of 2175863 total results
+2025-11-10 10:27:25,550 - INFO - Searching courses: recent meta-analysis on meditation-induced neuroplasticity
+2025-11-10 10:27:25,550 - INFO - Searching ArXiv: novel gene mutations influencing neurochemistry
+2025-11-10 10:27:25,551 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=novel+gene+mutations+influencing+neurochemistry&id_list=&sortBy=relevance&sortOrder=descending&start=0&max_results=100
+2025-11-10 10:27:25,953 - INFO - Got first page: 25 of 333972 total results
+2025-11-10 10:27:25,954 - INFO - Searching courses: novel gene mutations influencing neurochemistry
+2025-11-10 10:27:25,955 - INFO - Searching ArXiv: quantum models of consciousness
+2025-11-10 10:27:25,955 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=quantum+models+of+consciousness&id_list=&sortBy=relevance&sortOrder=descending&start=0&max_results=100
+2025-11-10 10:27:27,059 - INFO - Got first page: 100 of 2858678 total results
+2025-11-10 10:27:27,061 - INFO - Searching courses: quantum models of consciousness
+2025-11-10 10:27:27,061 - INFO - Found 31 items
+2025-11-10 10:27:27,061 - INFO - 127.0.0.1 - - [10/Nov/2025 10:27:27] "GET /api/get-recommendations HTTP/1.1" 200 -

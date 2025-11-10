@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Curation System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+
+        .setup-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .setup-panel h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .recommendations {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .recommendation-item {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+            transition: all 0.3s;
+        }
+
+        .recommendation-item:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateX(5px);
+        }
+
+        .recommendation-item.course {
+            border-left-color: #f093fb;
+        }
+
+        .rec-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .rec-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+            flex: 1;
+        }
+
+        .rec-type {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
+
+        .rec-type.paper {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .rec-type.course {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .rec-summary {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .rec-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .keyword {
+            background: #f0f0f0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            color: #555;
+        }
+
+        .rec-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .rating {
+            display: flex;
+            gap: 5px;
+        }
+
+        .star {
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: color 0.2s;
+            color: #ddd;
+        }
+
+        .star:hover, .star.active {
+            color: #ffc107;
+        }
+
+        .link-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: background 0.2s;
+        }
+
+        .link-button:hover {
+            background: #764ba2;
+        }
+
+        .status-bar {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .status-item h3 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .status-item p {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .alert.error {
+            background: #ffebee;
+            color: #c62828;
+            border-left: 4px solid #c62828;
+        }
+
+        .alert.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid #2e7d32;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .rec-header {
+                flex-direction: column;
+            }
+
+            .rec-type {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Learning Curation System</h1>
+            <p>AI-powered personalized learning with papers & courses</p>
+        </header>
+
+        <div class="main-content">
+            <div class="setup-panel">
+                <h2>Get Started</h2>
+                <div id="setupForm">
+                    <div class="input-group">
+                        <label for="topicsInput">Enter Your Interests</label>
+                        <textarea id="topicsInput" placeholder="e.g., machine learning, cryptography, distributed systems&#10;Enter each topic on a new line"></textarea>
+                    </div>
+                    <button onclick="setupSystem()">Initialize System</button>
+                </div>
+                <div id="statusBox" class="status-bar" style="display: none;">
+                    <div class="status-item">
+                        <h3 id="topicsCount">0</h3>
+                        <p>Topics Tracked</p>
+                    </div>
+                    <div class="status-item">
+                        <h3 id="ratedCount">0</h3>
+                        <p>Items Rated</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div id="recommendationsBox" style="display: none;">
+                    <button onclick="loadRecommendations()" style="margin-bottom: 20px; background: white; color: #667eea; border: 2px solid #667eea;">
+                        🔄 Load Recommendations
+                    </button>
+                    <div id="recommendations" class="recommendations"></div>
+                </div>
+
+                <div id="noSetup" class="card">
+                    <div class="loading">
+                        <h3>Welcome!</h3>
+                        <p>Enter your research interests on the left to get started.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentRatings = {};
+
+        async function setupSystem() {
+            const topicsText = document.getElementById('topicsInput').value;
+            if (!topicsText.trim()) {
+                alert('Please enter at least one topic');
+                return;
+            }
+
+            const topics = topicsText
+                .split('\n')
+                .map(t => t.trim())
+                .filter(t => t.length > 0);
+
+            try {
+                const response = await fetch('/api/setup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ topics })
+                });
+
+                if (response.ok) {
+                    document.getElementById('setupForm').style.display = 'none';
+                    document.getElementById('statusBox').style.display = 'flex';
+                    document.getElementById('recommendationsBox').style.display = 'block';
+                    document.getElementById('noSetup').style.display = 'none';
+
+                    document.getElementById('topicsCount').textContent = topics.length;
+
+                    loadRecommendations();
+                } else {
+                    alert('Setup failed');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        async function loadRecommendations() {
+            const box = document.getElementById('recommendations');
+            box.innerHTML = '<div class="loading"><div class="spinner"></div><p>Finding personalized recommendations...</p></div>';
+
+            try {
+                const response = await fetch('/api/get-recommendations');
+                const data = await response.json();
+
+                if (data.error) {
+                    box.innerHTML = '<div class="alert error">Setup required. Please enter your topics first.</div>';
+                    return;
+                }
+
+                box.innerHTML = '';
+                data.recommendations.forEach(rec => {
+                    const recEl = document.createElement('div');
+                    recEl.className = `recommendation-item ${rec.type}`;
+
+                    const keywordsHtml = rec.keywords.map(k => `<span class="keyword">${k}</span>`).join('');
+
+                    recEl.innerHTML = `
+                        <div class="rec-header">
+                            <div class="rec-title">${escapeHtml(rec.title)}</div>
+                            <span class="rec-type ${rec.type}">${rec.type}</span>
+                        </div>
+                        <div class="rec-summary">${escapeHtml(rec.summary)}</div>
+                        <div class="rec-keywords">${keywordsHtml}</div>
+                        <div class="rec-actions">
+                            <div class="rating" id="rating-${rec.id}">
+                                ${[1,2,3,4,5].map(i => 
+                                    `<span class="star" onclick="rateItem('${rec.id}', ${i})">${'★'.repeat(i)}${'☆'.repeat(5-i)}</span>`
+                                ).join('')}
+                            </div>
+                            <a href="${rec.url}" target="_blank" class="link-button" style="margin-left: auto;">
+                                ${rec.type === 'paper' ? '📄 View' : '🎓 Enroll'}
+                            </a>
+                        </div>
+                    `;
+                    box.appendChild(recEl);
+                });
+            } catch (error) {
+                box.innerHTML = '<div class="alert error">Error loading recommendations: ' + error.message + '</div>';
+            }
+        }
+
+        async function rateItem(itemId, rating) {
+            currentRatings[itemId] = rating;
+
+            // Update visual
+            const stars = document.querySelectorAll(`#rating-${itemId} .star`);
+            stars.forEach((star, i) => {
+                if (i < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+
+            try {
+                await fetch('/api/rate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ item_id: itemId, rating })
+                });
+
+                // Update rated count
+                const status = await fetch('/api/status');
+                const data = await status.json();
+                document.getElementById('ratedCount').textContent = data.items_rated;
+            } catch (error) {
+                console.error('Rating error:', error);
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Load status on page load
+        async function checkStatus() {
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+
+                if (data.topics && data.topics.length > 0) {
+                    document.getElementById('setupForm').style.display = 'none';
+                    document.getElementById('statusBox').style.display = 'flex';
+                    document.getElementById('recommendationsBox').style.display = 'block';
+                    document.getElementById('noSetup').style.display = 'none';
+
+                    document.getElementById('topicsCount').textContent = data.topics.length;
+                    document.getElementById('ratedCount').textContent = data.items_rated;
+                }
+            } catch (error) {
+                console.log('Status check failed (first time?)');
+            }
+        }
+
+        checkStatus();
+    </script>
+</body>
+</html>
