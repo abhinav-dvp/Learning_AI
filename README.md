@@ -90,6 +90,27 @@ source venv/bin/activate  # Activate environment
 python app.py             # Start server
 ```
 
+## 🛠 Automation shortcuts
+
+I added a small `manage.sh` script to automate common tasks. From the project root run:
+
+```bash
+# Create venv and install dependencies
+./manage.sh setup
+
+# Start the app (prefers ./venv)
+./manage.sh run
+
+# Publish the current snapshot to GitHub (prefers SSH)
+./manage.sh publish
+
+# Quick syntax test
+./manage.sh test
+```
+
+The repository also contains a GitHub Actions workflow that runs a quick Python syntax check on pushes and pull-requests to `main`.
+
+
 ## 🌐 Access the Dashboard
 
 Open your browser and go to:

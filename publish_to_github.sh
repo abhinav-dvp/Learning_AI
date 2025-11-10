@@ -7,9 +7,10 @@ set -euo pipefail
 # Make sure you have push access to the provided remote and have authenticated
 # (SSH key or HTTPS credentials via credential manager).
 
-REPO_URL="https://github.com/abhinav-dvp/Learning_AI.git"
+REPO_HTTPS="https://github.com/abhinav-dvp/Learning_AI.git"
+REPO_SSH="git@github.com:abhinav-dvp/Learning_AI.git"
 
-echo "Repository remote: $REPO_URL"
+echo "Publish script starting..."
 
 if [ -d ".git" ]; then
   echo "Found existing .git directory — using existing repository state."
@@ -33,7 +34,6 @@ node_modules/
 dist/
 build/
 *.egg-info/
-venv/
 data/*.db
 EOF
   echo "Created .gitignore"
@@ -45,12 +45,22 @@ fi
 mkdir -p data/papers data/vector_db
 touch data/.gitkeep data/papers/.gitkeep data/vector_db/.gitkeep
 
+# Prefer SSH when available
+echo "Checking SSH access to GitHub..."
+if ssh -T git@github.com >/dev/null 2>&1; then
+  REMOTE_URL="$REPO_SSH"
+  echo "SSH access detected — using SSH remote: $REMOTE_URL"
+else
+  REMOTE_URL="$REPO_HTTPS"
+  echo "SSH not available — falling back to HTTPS remote: $REMOTE_URL"
+fi
+
 # Set or update origin remote
 if git remote | grep -q "origin"; then
-  echo "Remote 'origin' already configured — updating URL to $REPO_URL"
-  git remote set-url origin "$REPO_URL"
+  echo "Remote 'origin' already configured — updating URL to $REMOTE_URL"
+  git remote set-url origin "$REMOTE_URL"
 else
-  git remote add origin "$REPO_URL"
+  git remote add origin "$REMOTE_URL"
 fi
 
 echo "Staging files..."
@@ -72,8 +82,10 @@ git push -u origin main
 RC=$?
 set -e
 if [ $RC -ne 0 ]; then
-  echo "Push failed with exit code $RC. If you see authentication errors, ensure you have permission to push and that your credentials/SSH key are configured."
-  exit $RC
+  echo "Push failed with exit code $RC. Trying to push current branch to origin as 'local-import' instead."
+  git push -u origin HEAD:local-import || {
+    echo "Push failed again. Please check your remote permissions or push manually."; exit 1
+  }
 fi
 
-echo "Repository published to $REPO_URL"
+echo "Repository published to $REMOTE_URL"

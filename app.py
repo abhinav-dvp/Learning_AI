@@ -516,4 +516,11 @@ def get_status():
 
 if __name__ == "__main__":
     system = EnhancedSystem()
-    app.run(debug=True, host='0.0.0.0', port=12345)
+    # Read runtime configuration from environment variables so port/host
+    # can be changed without editing the code.
+    host = os.environ.get("HOST", "0.0.0.0")
+    port = int(os.environ.get("PORT", os.environ.get("PORT_NUMBER", 12345)))
+    debug = os.environ.get("DEBUG", "True").lower() in ("1", "true", "yes")
+
+    logger.info(f"Starting app on {host}:{port} (debug={debug})")
+    app.run(debug=debug, host=host, port=port)
